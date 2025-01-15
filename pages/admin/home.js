@@ -1,11 +1,10 @@
 import { useState } from "react";
-import Link from "next/link";
 import Blogs from '@/pages/admin/blogs'
 import Leads from '@/pages/admin/leads'
 import Listing from '@/pages/admin/listing'
-import { FaChartLine, FaUsers, FaBuilding, FaClipboardList } from "react-icons/fa";
+import { FaChartLine ,FaBars, FaTimes, FaUsers, FaBuilding, FaClipboardList } from "react-icons/fa";
 
-// Dynamic Menu Items
+// Define the menuItems array inside the component or import if it's in a separate file
 const menuItems = [
   { name: "Dashboard", path: "dashboard" },
   { name: "Listing", path: "listing" },
@@ -15,8 +14,8 @@ const menuItems = [
 ];
 
 const Home = () => {
-  // State to track selected menu item
   const [selectedMenu, setSelectedMenu] = useState("dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Function to render dynamic content based on selected menu
   const renderContent = () => {
@@ -125,12 +124,10 @@ const Home = () => {
         return <div className="bg-white shadow-md rounded-lg p-6">Please Menu Correct Choice  </div>;
     }
   };
-
   return (
     <div className="flex min-h-screen bg-gray-100">
-
-      {/* The Navbar and Footer bar is Hide   */}
-      <style jsx global>{`
+         {/* The Navbar and Footer bar is Hide   */}
+         <style jsx global>{`
            nav {
             display: none;
            }
@@ -138,18 +135,16 @@ const Home = () => {
             display: none;
            }
    `}</style>
-
       {/* Sidebar */}
-      <div className="w-64 bg-blue-900 text-white p-4">
+      <div className={`w-64 bg-blue-900 text-white p-4 ${sidebarOpen ? "block" : "hidden"} md:block`}>
         <h2 className="text-2xl font-semibold mb-6">Admin Panel</h2>
         <ul className="space-y-4">
-          {/* Dynamically Render Menu Items */}
           {menuItems.map((item, index) => (
             <li key={index}>
               <a
                 href="#"
                 onClick={() => setSelectedMenu(item.path)}
-                className={`hover:bg-blue-700 p-2 rounded block ${selectedMenu === item.path ? 'bg-blue-700' : ''}`}
+                className={`hover:bg-blue-700 p-2 rounded block ${selectedMenu === item.path ? "bg-blue-700" : ""}`}
               >
                 {item.name}
               </a>
@@ -158,11 +153,15 @@ const Home = () => {
         </ul>
       </div>
 
+      {/* Hamburger Menu for Small Screens */}
+      <div className="md:hidden p-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
+        {sidebarOpen ? <FaTimes className="text-white" /> : <FaBars className="text-white" />}
+      </div>
+
       {/* Main Content */}
       <div className="flex-1 p-6">
-        {/* Header */}
         <header className="mb-6 hidden md:block">
-          <h1 className="text-3xl font-semibold">Admin Dashboard</h1>
+          <h1 className="text-3xl font-semibold text-blue-500">Admin Dashboard</h1>
         </header>
 
         {/* Render Dynamic Content */}
