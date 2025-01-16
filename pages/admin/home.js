@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Blogs from '@/pages/admin/blogs'
+import Blogs from '@/pages/admin/blogs.js'
 import Leads from '@/pages/admin/leads'
 import Listing from '@/pages/admin/listing'
 import { FaChartLine ,FaBars, FaTimes, FaUsers, FaBuilding, FaClipboardList } from "react-icons/fa";
@@ -142,6 +142,7 @@ const Home = () => {
           {menuItems.map((item, index) => (
             <li key={index}>
               <a
+                // href={`${item.path}`}
                 href="#"
                 onClick={() => setSelectedMenu(item.path)}
                 className={`hover:bg-blue-700 p-2 rounded block ${selectedMenu === item.path ? "bg-blue-700" : ""}`}

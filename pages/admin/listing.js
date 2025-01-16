@@ -116,7 +116,7 @@ export default function AdminListing() {
       <Head>
         <title>Admin - Edit Property Listings</title>
         <meta name="description" content="Admin panel to manage and edit property listings for Mamta Realty." />
-      </Head>
+      </Head> 
 
       <div className="py-4 bg-gray-100">
         <div className="max-w-screen-lg mx-auto flex flex-col sm:flex-row sm:justify-between sm:items-center px-4">
