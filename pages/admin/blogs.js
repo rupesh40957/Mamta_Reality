@@ -191,8 +191,7 @@ export default function AdminPage() {
             <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
             <div className="p-6">
               <h3 className="font-semibold text-xl mb-2 text-gray-900">{post.title}</h3>
-           <p className="text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: post.description }}></p>
-
+              <p className="text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: post.description }}></p>
               <div className="flex justify-between">
                 <button
                   onClick={() => handleEditClick(post.id)}
