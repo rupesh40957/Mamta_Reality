@@ -1,12 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { PencilIcon, TrashIcon, PlusIcon } from '@heroicons/react/solid';
-import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
 export default function AdminPage() {
   const [posts, setPosts] = useState([
-    // Example initial data
     { id: 1, title: 'Post 1', description: 'This is post 1 description', image: '/path/to/image1.jpg' },
     { id: 2, title: 'Post 2', description: 'This is post 2 description', image: '/path/to/image2.jpg' },
   ]);
@@ -23,34 +21,35 @@ export default function AdminPage() {
   const quillEditor = useRef(null);
 
   useEffect(() => {
-    if (isModalOpen) {
-      // Initialize Quill editor when the modal opens
-      quillEditor.current = new Quill(quillRef.current, {
-        theme: 'snow',
-        placeholder: 'Write your post content here...',
-        modules: {
-          toolbar: [
-            [{ header: '1' }, { header: '2' }, { font: [] }],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-            ['bold', 'italic', 'underline'],
-            ['link'],
-            ['blockquote'],
-            [{ align: [] }],
-            [{ color: [] }, { background: [] }],
-            [{ script: 'sub' }, { script: 'super' }],
-            ['image', 'video'],
-            ['clean'],
-          ],
-        },
-      });
+    if (isModalOpen && typeof window !== 'undefined') {
+      import('quill').then((Quill) => {
+        quillEditor.current = new Quill.default(quillRef.current, {
+          theme: 'snow',
+          placeholder: 'Write your post content here...',
+          modules: {
+            toolbar: [
+              [{ header: '1' }, { header: '2' }, { font: [] }],
+              [{ list: 'ordered' }, { list: 'bullet' }],
+              ['bold', 'italic', 'underline'],
+              ['link'],
+              ['blockquote'],
+              [{ align: [] }],
+              [{ color: [] }, { background: [] }],
+              [{ script: 'sub' }, { script: 'super' }],
+              ['image', 'video'],
+              ['clean'],
+            ],
+          },
+        });
 
-      if (isEditMode && currentPostId !== null) {
-        const postToEdit = posts.find(post => post.id === currentPostId);
-        quillEditor.current.root.innerHTML = postToEdit.description;
-        setNewPost({ ...postToEdit });
-      } else {
-        quillEditor.current.root.innerHTML = '';
-      }
+        if (isEditMode && currentPostId !== null) {
+          const postToEdit = posts.find((post) => post.id === currentPostId);
+          quillEditor.current.root.innerHTML = postToEdit.description || '';
+          setNewPost({ ...postToEdit });
+        } else {
+          quillEditor.current.root.innerHTML = '';
+        }
+      });
     }
   }, [isModalOpen, currentPostId, isEditMode]);
 
@@ -101,14 +100,17 @@ export default function AdminPage() {
   };
 
   const handleConfirmDelete = () => {
-    const updatedPosts = posts.filter(post => post.id !== deleteConfirm);
+    const updatedPosts = posts.filter((post) => post.id !== deleteConfirm);
     setPosts(updatedPosts);
     setDeleteConfirm(null);
   };
 
+  const filteredPosts = posts.filter((post) =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
-      {/* Search input and "Add New Post" button */}
       <input
         type="text"
         placeholder="Search Posts..."
@@ -124,14 +126,12 @@ export default function AdminPage() {
         Add New Post
       </button>
 
-      {/* Modal for adding/editing post */}
       {isModalOpen && (
         <div className="fixed inset-0 text-blue-500 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg shadow-md w-1/2">
             <h3 className="text-xl font-semibold mb-4">
               {isEditMode ? 'Edit Post' : 'Add New Post'}
             </h3>
-            {/* Form for Title */}
             <input
               type="text"
               placeholder="Title"
@@ -139,20 +139,18 @@ export default function AdminPage() {
               onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
               className="w-full p-2 mb-4 border rounded"
             />
-            {/* Quill Editor for Description */}
-            <div
-              ref={quillRef}
-              className="mb-4"
-              style={{ height: '200px' }}
-            />
-            {/* Image Drag-and-Drop */}
+            <div ref={quillRef} className="mb-4" style={{ height: '200px' }} />
             <div
               {...getRootProps()}
-              className={`w-full p-6 border-4 border-dashed rounded-lg flex justify-center items-center cursor-pointer ${imageError ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full p-6 border-4 border-dashed rounded-lg flex justify-center items-center cursor-pointer ${
+                imageError ? 'border-red-500' : 'border-gray-300'
+              }`}
             >
               <input {...getInputProps()} />
               {!newPost.image ? (
-                <span className="text-gray-500 text-xl">Drag & drop an image here, or click to select one</span>
+                <span className="text-gray-500 text-xl">
+                  Drag & drop an image here, or click to select one
+                </span>
               ) : (
                 <div className="text-center">
                   <img
@@ -165,7 +163,6 @@ export default function AdminPage() {
               )}
             </div>
             {imageError && <p className="text-red-500 text-sm mt-2">{imageError}</p>}
-
             <div className="flex justify-between mt-4">
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -184,9 +181,8 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* Display posts */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <div key={post.id} className="bg-white shadow-md rounded-lg overflow-hidden">
             <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
             <div className="p-6">
@@ -211,11 +207,12 @@ export default function AdminPage() {
         ))}
       </div>
 
-      {/* Delete confirmation modal */}
       {deleteConfirm && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex text-gray-800 items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4">Are you sure you want to delete this post?</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              Are you sure you want to delete this post?
+            </h3>
             <div className="flex justify-between">
               <button
                 onClick={() => setDeleteConfirm(null)}
@@ -227,14 +224,12 @@ export default function AdminPage() {
                 onClick={handleConfirmDelete}
                 className="bg-red-600 text-white px-4 py-2 rounded-lg"
               >
-                Delete
+                Confirm
               </button>
             </div>
           </div>
         </div>
       )}
-
-      {isLoading && <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50"><span className="text-white">Deleting...</span></div>}
     </>
   );
 }

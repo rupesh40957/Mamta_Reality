@@ -14,6 +14,7 @@ const initialProperties = [
     images: ['/property-placeholder.jpg'],
     videos: [],
     description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+    projectType: 'Featured Projects', // Default project type
   },
   {
     id: 2,
@@ -57,6 +58,7 @@ export default function AdminListing() {
       images: [],
       videos: [],
       description: '',
+      projectType: 'Featured Projects', // Default project type
     });
     setShowModal(true);
   };
@@ -170,6 +172,7 @@ export default function AdminListing() {
                     </button>
                   </p>
 
+                  <p className="text-gray-500 mt-2 text-sm">Project Type: {property.projectType}</p>
                   <div className="flex space-x-2 mt-4">
                     <button
                       onClick={() => openModal(property)}
@@ -198,6 +201,19 @@ export default function AdminListing() {
               {editingProperty?.id ? 'Edit Property' : 'Add New Property'}
             </h2>
             <form className="space-y-4 mt-4">
+            <div>
+                <label className="block text-sm font-semibold text-gray-700">Project Type</label>
+                <select
+                  value={editingProperty.projectType}
+                  onChange={(e) => setEditingProperty({ ...editingProperty, projectType: e.target.value })}
+                  className="w-full p-3 border border-gray-300 rounded-lg"
+                >
+                  <option value="Featured Projects">Featured Projects</option>
+                  <option value="Recommended for You">Recommended for You</option>
+                  <option value="Newly Launched Projects">Newly Launched Projects</option>
+                  <option value="Upcoming Projects">Upcoming Projects</option>
+                </select>
+              </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700">Property Name</label>
                 <input

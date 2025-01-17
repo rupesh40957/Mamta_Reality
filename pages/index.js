@@ -1,242 +1,772 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';  // Using Next.js Image component for optimization
-import banner from '@/public/img/banner.jpeg';
+import { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { SearchIcon } from '@heroicons/react/solid';
 
 export default function HomePage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  // Filter projects based on search query
+  const filteredFeaturedProjects = featuredProjects.filter(project =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredRecommendedProjects = recommendedProjects.filter(project =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredNewlyLaunchedProjects = newlyLaunchedProjects.filter(project =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredUpcomingProjects = upcomingProjects.filter(project =>
+    project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <>
-      <Head>
-        <title>Real Estate Listings - Mamta Realty</title>
-        <meta
-          name="description"
-          content="Explore a wide range of properties for sale and rent. Contact Mamta Realty for the best real estate deals."
-        />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Real Estate Listings - Mamta Realty" />
-        <meta
-          property="og:description"
-          content="Explore a wide range of properties for sale and rent. Contact Mamta Realty for the best real estate deals."
-        />
-        <meta
-          property="og:image"
-          content="/img/banner.jpeg" // Ensure your OG image is included for sharing purposes
-        />
-      </Head>
-
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-cover bg-center p-32" style={{
-        backgroundImage: `url(${banner.src})`, // Correct path for the image in the public folder
-      }}>
-      </section>
-
-      {/* Search Bar Section */}
-      <div className="max-w-screen-lg mx-auto text-center">
-        <h2 className="text-2xl font-semibold mb-6">Start Your Property Search</h2>
-        <div className="max-w-screen-md mx-auto">
-          <form className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
-            <input
-              type="text"
-              placeholder="Enter Location"
-              className="p-3 w-full md:w-60 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <select className="p-3 w-full md:w-60 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="all">All Property Types</option>
-              <option value="sale">For Sale</option>
-              <option value="rent">For Rent</option>
-              <option value="commercial">Commercial Properties</option>
-            </select>
-            <input
-              type="number"
-              placeholder="Max Price"
-              className="p-3 w-full md:w-60 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              type="submit"
-              className="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition duration-200"
-            >
-              Search
-            </button>
-          </form>
-        </div>
+      <div className="relative">
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          autoplay={{ delay: 3000 }}
+          loop
+          pagination={{ clickable: true }}
+          navigation
+        >
+          <SwiperSlide>
+            <img src="/banner1.jpg" alt="Banner 1" className="w-full h-[400px] object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-75"></div>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
+              <h1 className="text-4xl font-bold text-center">Find Your Dream Home</h1>
+              <p className="mt-4 text-lg text-center">Browse through thousands of listings in your city.</p>
+              <button className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">Explore Now</button>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img src="/banner2.jpg" alt="Banner 2" className="w-full h-[400px] object-cover" />
+          </SwiperSlide>
+        </Swiper>
       </div>
 
-      {/* Property Search Section */}
-      <section id="search-section" className="bg-gray-100 py-12">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Find Properties by Type</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg">
-              <h3 className="font-semibold text-lg">For Sale</h3>
-              <p className="mt-2">Explore the best homes and apartments for sale.</p>
-              <Link href="/for-sale">
-                <button className="text-blue-600 hover:underline mt-4 block">Browse Listings</button>
-              </Link>
-            </div>
-            <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg">
-              <h3 className="font-semibold text-lg">For Rent</h3>
-              <p className="mt-2">Find rental properties that suit your budget and needs.</p>
-              <Link href="/for-rent">
-                <button className="text-blue-600 hover:underline mt-4 block">Browse Listings</button>
-              </Link>
-            </div>
-            <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg">
-              <h3 className="font-semibold text-lg">Commercial Properties</h3>
-              <p className="mt-2">Discover commercial spaces for business or investment.</p>
-              <Link href="/commercial">
-                <button className="text-blue-600 hover:underline mt-4 block">Browse Listings</button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-   
-      {/* Featured Section */}
-      <section className="py-12 bg-gray-100">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Featured Projects</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Featured Item */}
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-              <img
-                src="/featured-property.jpg"
-                alt="Featured Property"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg">Luxury Villa</h3>
-                <p className="mt-2 text-gray-500">3 Bed | 2 Bath | 2000 Sq Ft</p>
-                <p className="mt-2 text-blue-600 font-bold">$1,200,000</p>
-                <Link href="/property-details">
-                  <button className="text-blue-600 hover:underline mt-4 block">View Details</button>
-                </Link>
-              </div>
-            </div>
-            {/* Add more featured items */}
-          </div>
-        </div>
-      </section>
+      {/* Property Search Engine */}
+      <div className="p-4 bg-white shadow-md mt-2 rounded-lg mx-4 md:mx-10 flex items-center justify-center">
+        <input
+          type="text"
+          placeholder="Search for properties..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-grow p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button className="ml-4 bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 flex items-center">
+          <SearchIcon className="h-6 w-6" />
+          <span className="ml-2">Search</span>
+        </button>
+      </div>
+      <div className="text-center"> 
 
-      {/* Recommended Section */}
-      <section className="py-12">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Recommended for You</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Recommended Property */}
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-              <img
-                src="/recommended-property.jpg"
-                alt="Recommended Property"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg">Modern Apartment</h3>
-                <p className="mt-2 text-gray-500">2 Bed | 1 Bath | 1200 Sq Ft</p>
-                <p className="mt-2 text-blue-600 font-bold">$850,000</p>
-                <Link href="/property-details">
-                  <button className="text-blue-600 hover:underline mt-4 block">View Details</button>
-                </Link>
-              </div>
-            </div>
-            {/* Add more recommended properties */}
-          </div>
-        </div>
-      </section>
+        {/* Featured Projects Section with Swiper */}
+        <SectionWithSwiper title="Featured Projects" projects={filteredFeaturedProjects} />
 
-      {/* Newly Launched Projects */}
-      <section className="py-12 bg-gray-100">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Newly Launched Projects</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Newly Launched Project */}
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-              <img
-                src="/new-project.jpg"
-                alt="New Project"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg">Skyline Residency</h3>
-                <p className="mt-2 text-gray-500">Affordable apartments with great amenities.</p>
-                <Link href="/project-details">
-                  <button className="text-blue-600 hover:underline mt-4 block">Learn More</button>
-                </Link>
-              </div>
-            </div>
-            {/* Add more newly launched projects */}
-          </div>
-        </div>
-      </section>
+        {/* Recommended for You */}
+        <SectionWithSwiper title="Recommended for You" projects={filteredRecommendedProjects} />
 
-      {/* Upcoming Projects */}
-      <section className="py-12">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Upcoming Projects</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Upcoming Project */}
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-              <img
-                src="/upcoming-project.jpg"
-                alt="Upcoming Project"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="font-semibold text-lg">Future Heights</h3>
-                <p className="mt-2 text-gray-500">Expected Completion: Q3 2025</p>
-                <Link href="/upcoming-details">
-                  <button className="text-blue-600 hover:underline mt-4 block">Get Updates</button>
-                </Link>
-              </div>
-            </div>
-            {/* Add more upcoming projects */}
-          </div>
-        </div>
-      </section>
+        {/* Newly Launched Projects */}
+        <SectionWithSwiper title="Newly Launched Projects" projects={filteredNewlyLaunchedProjects} />
 
-      {/* Move-In Options */}
-      <section className="py-12 bg-gray-100">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">Move-In Options</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <div className="bg-white shadow-md rounded-lg p-6">
-              <h3 className="font-semibold text-lg">Move in Now</h3>
-              <p className="mt-2">Ready-to-move homes available immediately.</p>
-              <Link href="/move-in-now">
-                <button className="text-blue-600 hover:underline mt-4 block">View Listings</button>
-              </Link>
-            </div>
-            <div className="bg-white shadow-md rounded-lg p-6">
-              <h3 className="font-semibold text-lg">Next Year</h3>
-              <p className="mt-2">Homes completing in the next year.</p>
-              <Link href="/next-year">
-                <button className="text-blue-600 hover:underline mt-4 block">View Listings</button>
-              </Link>
-            </div>
-            <div className="bg-white shadow-md rounded-lg p-6">
-              <h3 className="font-semibold text-lg">Later</h3>
-              <p className="mt-2">Plan ahead for future housing options.</p>
-              <Link href="/later">
-                <button className="text-blue-600 hover:underline mt-4 block">View Listings</button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+        {/* Upcoming Projects */}
+        <SectionWithSwiper title="Upcoming Projects" projects={filteredUpcomingProjects} />
 
-      {/* Testimonials */}
-      <section className="py-12">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold mb-6">What Our Clients Say</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {/* Testimonial */}
-            <div className="bg-white shadow-md rounded-lg p-6">
-              <p className="text-gray-600">"Mamta Realty helped us find our dream home effortlessly. Highly recommend!"</p>
-              <p className="mt-4 font-semibold">- John Doe</p>
-            </div>
-            {/* Add more testimonials */}
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+
+      {/* Customer Testimonials */}
+      <TestimonialsSection />
+    </div>
   );
 }
+
+function SectionWithSwiper({ title, projects }) {
+  const slidesPerView = 4; // Number of cards per slide
+  const chunkedProjects = [];
+  
+  // Chunk the projects into groups of 'slidesPerView'
+  for (let i = 0; i < projects.length; i += slidesPerView) {
+    chunkedProjects.push(projects.slice(i, i + slidesPerView));
+  }
+
+  return (
+    <div className="mt-10 px-4 md:px-10">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800">{title}</h2>
+      <Swiper
+        spaceBetween={30}
+        slidesPerView={1}
+        loop
+        autoplay={{ delay: 3000 }}
+        navigation
+      >
+        {chunkedProjects.map((projectChunk, index) => (
+          <SwiperSlide key={index}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {projectChunk.map((project) => (
+                <div
+                  key={project.id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg"
+                >
+                  <img src={project.image} alt={project.name} className="w-full h-48 object-cover" />
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900">{project.name}</h3>
+                    <p className="text-gray-600 mt-2">{project.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+}
+
+
+function TestimonialsSection() {
+  return (
+    <div className="bg-blue-50 py-10 px-4 md:px-10 mt-10">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center">Happy Customers</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {testimonials.map((testimonial) => (
+          <div key={testimonial.id} className="bg-white rounded-lg shadow-md p-6">
+            <p className="text-gray-600 italic">"{testimonial.quote}"</p>
+            <div className="mt-4">
+              <h4 className="text-lg font-semibold text-gray-900">{testimonial.name}</h4>
+              <p className="text-gray-500">{testimonial.location}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+// Example Data
+const featuredProjects = [
+  {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  },
+];
+
+const recommendedProjects = [
+  {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  },
+];
+
+const newlyLaunchedProjects = [
+  {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  },
+];
+
+const upcomingProjects = [
+  {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  },
+];
+
+const testimonials = [
+  {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  }, {
+    id: 1,
+    name: '3 BHK Apartment',
+    location: 'Andheri, Mumbai',
+    price: '₹1.25 Crore',
+    size: '1200 Sq Ft',
+    baths: 2,
+    propertyType: 'Apartment',
+    amenities: ['Gym', 'Swimming Pool', 'Parking'],
+    images: ['/property-placeholder.jpg'],
+    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
+  },
+];
