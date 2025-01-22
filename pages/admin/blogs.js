@@ -5,7 +5,12 @@ import 'quill/dist/quill.snow.css';
 
 export default function AdminPage() {
   const [posts, setPosts] = useState([
-    { id: 1, title: 'Post 1', description: 'This is post 1 description', image: '/path/to/image1.jpg' },
+    {
+      id: 1,
+      title: "Post 1",
+      description: "<p>This is <strong>post 1</strong> description with HTML content.</p>",
+      image: "/path/to/image1.jpg"
+    },
     { id: 2, title: 'Post 2', description: 'This is post 2 description', image: '/path/to/image2.jpg' },
   ]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -142,9 +147,8 @@ export default function AdminPage() {
             <div ref={quillRef} className="mb-4" style={{ height: '200px' }} />
             <div
               {...getRootProps()}
-              className={`w-full p-6 border-4 border-dashed rounded-lg flex justify-center items-center cursor-pointer ${
-                imageError ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full p-6 border-4 border-dashed rounded-lg flex justify-center items-center cursor-pointer ${imageError ? 'border-red-500' : 'border-gray-300'
+                }`}
             >
               <input {...getInputProps()} />
               {!newPost.image ? (

@@ -6,10 +6,10 @@ import { FaChartLine ,FaBars, FaTimes, FaUsers, FaBuilding, FaClipboardList } fr
 
 // Define the menuItems array inside the component or import if it's in a separate file
 const menuItems = [
-  { name: "Dashboard", path: "dashboard" },
+  // { name: "Dashboard", path: "dashboard" },
   { name: "Listing", path: "listing" },
   { name: "Blogs", path: "blogs" },
-  { name: "Leads", path: "leads" },
+  // { name: "Leads", path: "leads" },
   { name: "Logout", path: "logout" },
 ];
 

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-900">
+    <footer className="bg-white dark:bg-gray-800 ">
       <div className="mx-auto w-full max-w-screen-xl">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
           <div>
@@ -11,23 +11,28 @@ export default function Footer() {
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium">
               <li className="mb-4">
-                <Link href="#" className="hover:underline">
-                  About
+                <Link href="/" className="hover:underline">
+                  Home
                 </Link>
               </li>
               <li className="mb-4">
-                <Link href="#" className="hover:underline">
-                  Careers
+                <Link href="/listing" className="hover:underline">
+                Listing
                 </Link>
               </li>
               <li className="mb-4">
-                <Link href="#" className="hover:underline">
-                  Brand Center
+                <Link href="/blogs" className="hover:underline">
+                Blogs
                 </Link>
               </li>
               <li className="mb-4">
-                <Link href="#" className="hover:underline">
-                  Blog
+                <Link href="/Contact" className="hover:underline">
+                Contact
+                </Link>
+              </li>
+              <li>
+              <Link href="/about" className="hover:underline">
+                About
                 </Link>
               </li>
             </ul>
