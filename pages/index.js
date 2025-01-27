@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Contact from '../pages/contact'
 import 'swiper/css';
 import { LocationMarkerIcon, CheckCircleIcon, UsersIcon } from '@heroicons/react/solid';
 import { SearchIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import { FaWhatsapp } from 'react-icons/fa';
+
 
 export default function HomePage({ darkMode }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,51 +85,16 @@ export default function HomePage({ darkMode }) {
         <SectionWithSwiper title="Recommended for You" projects={filteredProjects(recommendedProjects)} />
         <SectionWithSwiper title="Newly Launched Projects" projects={filteredProjects(newlyLaunchedProjects)} />
         <SectionWithSwiper title="Upcoming Projects" projects={filteredProjects(upcomingProjects)} />
+        <Contact />
       </div>
     </div>
   );
 }
 
-// function SectionWithSwiper({ title, projects }) {
-//   return (
-//     <div className="mt-10 px-4 sm:px-6 md:px-10">
-//       <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 dark:text-white">{title}</h2>
-//       <Swiper
-//         spaceBetween={10}
-//         slidesPerView={1}
-//         breakpoints={{
-//           640: { slidesPerView: 2, spaceBetween: 20 }, // Small devices
-//           768: { slidesPerView: 3, spaceBetween: 30 }, // Medium devices
-//           1024: { slidesPerView: 4, spaceBetween: 40 }, // Large devices
-//         }}
-//         loop
-//         autoplay={{ delay: 3000 }}
-//         navigation
-//       >
-//         {projects.map((project) => (
-//           <SwiperSlide key={project.id}>
-//             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 dark:bg-gray-700 dark:text-white">
-//               <img
-//                 src={project.image}
-//                 alt={project.name}
-//                 className="w-full h-48 object-cover"
-//               />
-//               <div className="p-4">
-//                 <h3 className="text-lg font-semibold">{project.name}</h3>
-//                 <p className="text-gray-600 dark:text-gray-300">{project.description}</p>
-//               </div>
-//             </div>
-//           </SwiperSlide>
-//         ))}
-//       </Swiper>
-//     </div>
-//   );
-// }
-
 
 function SectionWithSwiper({ title, projects }) {
   return (
-    <div className="mt-10 px-4 sm:px-6 md:px-10">
+    <div className="mt-10 px-4 sm:px-6 md:px-10 relative">
       <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-800 dark:text-white">{title}</h2>
 
       <Swiper
@@ -194,25 +162,31 @@ function SectionWithSwiper({ title, projects }) {
 
                 {/* More details button */}
                 <div className="mt-3 text-center"> 
-                <Link
-                      href={`https://wa.me/9987790471`}
-                      target="_blank"
-                      className="w-full inline-block bg-blue-500 text-white py-2 rounded-lg text-center hover:bg-blue-600 transition-colors duration-200"
-                    >
-                      Contact
-                    </Link>
+                  <Link
+                    href={`https://wa.me/9987790471`}
+                    target="_blank"
+                    className="w-full inline-block bg-blue-500 text-white py-2 rounded-lg text-center hover:bg-blue-600 transition-colors duration-200"
+                  >
+                    Contact
+                  </Link>
                 </div>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+      
+
+
     </div>
+
+    
   );
 }
 
 
 // Example Data
+
 const featuredProjects = [
   {
     id: 1,

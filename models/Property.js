@@ -1,3 +1,4 @@
+// models/property hai 
 import mongoose from "mongoose";
 
 const PropertySchema = new mongoose.Schema(

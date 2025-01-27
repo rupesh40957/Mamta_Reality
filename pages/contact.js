@@ -76,7 +76,7 @@ export default function ContactPage() {
       </section>
 
 
-      {/* Dark Mode Toggle Button */}
+      {/* Dark Mode Toggle Button
       <div className="fixed bottom-4  right-4">
       <a
       href="https://wa.me/9987790471"
@@ -86,7 +86,7 @@ export default function ContactPage() {
     >
       <FaWhatsapp className="text-white text-4xl" />
     </a>
-      </div>
+      </div> */}
     </>
   );
 }
