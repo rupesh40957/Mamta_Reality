@@ -203,7 +203,7 @@ export default function AdminListing() {
     return <div className="text-center py-10 text-red-500">{error}</div>;
 
   return (
-    <>
+    <div className='text-gray-900'>
       <Head>
         <title>Admin - Edit Property Listings</title>
         <meta
@@ -214,6 +214,9 @@ export default function AdminListing() {
 
       <div className="py-4 bg-gray-100">
         <div className="max-w-screen-lg mx-auto flex flex-col sm:flex-row sm:justify-between sm:items-center px-4">
+          
+
+          
         <input
             type="text"
             value={searchQuery}
@@ -645,6 +648,6 @@ export default function AdminListing() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

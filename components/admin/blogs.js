@@ -249,7 +249,7 @@ export default function Blogs() {
   }, [page, fetchPosts]);
 
   return (
-    <>
+    <div  className='text-gray-900'>
     <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="w-full md:w-1/2">
@@ -322,19 +322,49 @@ export default function Blogs() {
         </div>
       )}
 
+
       {/* Modal for Viewing Post */}
       {isViewModalOpen && selectedPost && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-md w-1/2">
-            <h3 className="text-xl font-semibold mb-4">{selectedPost.title}</h3>
-            <img src={selectedPost.image} alt={selectedPost.title} className="w-full h-48 object-cover mb-4" />
-            <div className="post-description" dangerouslySetInnerHTML={{ __html: selectedPost.description }} />
-            <div className="mt-4">
-              <button onClick={handleCloseViewModal} className="bg-gray-600 text-white px-4 py-2 rounded-lg">Close</button>
+          <div className="bg-white p-8 rounded-lg shadow-md w-3/4 max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white pb-4 border-b mb-4">
+              <h3 className="text-2xl font-semibold">{selectedPost.title}</h3>
+              <p className="text-gray-500 text-sm">
+                {selectedPost.updatedAt ? new Date(selectedPost.updatedAt).toLocaleDateString('en-IN', {
+                  day: '2-digit',
+                  month: 'long', 
+                  year: 'numeric'
+                }) : 'Date not available'}
+              </p>
+            </div>
+            
+            <div className="mb-6">
+              <img 
+                src={selectedPost.image} 
+                alt={selectedPost.title} 
+                className="w-full h-96 object-cover rounded-lg"
+              />
+            </div>
+
+            <div className="prose max-w-none">
+              <div 
+                className="post-description"
+                dangerouslySetInnerHTML={{ __html: selectedPost.description }} 
+              />
+            </div>
+
+            <div className="sticky bottom-0 bg-white pt-4 border-t mt-4">
+              <button 
+                onClick={handleCloseViewModal}
+                className="w-full bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
       )}
+     
 
       {/* Post List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -346,7 +376,7 @@ export default function Blogs() {
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
                 <h3 className="font-semibold text-xl mb-2 text-gray-900">{post.title}</h3>
-                <p className="text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: post.description }} />
+                <p className="text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: post.description.substring(0, 200) + '...' }} />
                 <div className="flex justify-between">
                   <button onClick={() => handleEditClick(post._id)} className="text-blue-600 hover:underline flex items-center">
                     <PencilIcon className="h-5 w-5 mr-2" /> Edit
@@ -392,6 +422,6 @@ export default function Blogs() {
           Next
         </button>
       </div>
-    </>
+    </div>
   );
 }

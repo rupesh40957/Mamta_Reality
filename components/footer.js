@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-export default function Footer() {
+export default function Footer(props) {
   return (
     <footer className="bg-white dark:bg-gray-800 ">
       <div className="mx-auto w-full max-w-screen-xl">
         <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
           <div>
             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-              Company
+    {props.companyName}
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium">
               <li className="mb-4">
@@ -116,7 +116,7 @@ export default function Footer() {
         </div>
         <div className="px-4 py-6 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">
-            © 2023 <Link href="https://flowbite.com/">Flowbite™</Link>. All Rights Reserved.
+            ©{new Date().getFullYear()} <Link href="/">{props.companyName}</Link>. All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center md:mt-0 space-x-5 rtl:space-x-reverse">
             {/* Social Media Icons */}
@@ -139,6 +139,7 @@ export default function Footer() {
                 />
               </svg>
             </a>
+
             {/* Add more social icons as necessary */}
           </div>
         </div>

@@ -114,7 +114,7 @@ const handleLogin = async (e) => {
            
    `}</style>
       <div className="bg-white text-black p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-semibold text-center mb-6">Login to Your Account</h2>
+        <h2 className="text-2xl font-semibold text-center mb-6">Admin Login</h2>
 
         <form onSubmit={handleLogin}>
           {/* Email Input */}
@@ -150,15 +150,15 @@ const handleLogin = async (e) => {
             </button>
           </div>
 
-          {/* Forgot Password Link */}
+          {/* Forgot Password Link
           <div className="text-center">
             <a href="/admin/forgert-password" className="text-sm text-blue-600 hover:underline">Forgot Password?</a>
           </div>
 
-          {/* Sign Up Link (optional) */}
+          {/* Sign Up Link (optional) *
           <div className="text-center mt-4">
             <p className="text-sm">Don't have an account? <a href="/signup" className="text-blue-600 hover:underline">Sign Up</a></p>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

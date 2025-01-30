@@ -1,27 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image'; // For optimized image rendering
 import { FaSearch } from 'react-icons/fa';
-
-const initialProperties = [
-  {
-    id: 1,
-    name: '3 BHK Apartment',
-    location: 'Andheri, Mumbai',
-    price: '₹1.25 Crore',
-    size: '1200 Sq Ft',
-    baths: 2,
-    propertyType: 'Apartment',
-    amenities: ['Gym', 'Swimming Pool', 'Parking'],
-    images: ['https://dummyimage.com/720x400' , 'https://dummyimage.com/720x500',  'https://dummyimage.com/720x900'],
-    videos: ['https://www.youtube.com/watch?v=AU-hut9lGQ4&list=RDAU-hut9lGQ4&start_radio=1', 'https://www.youtube.com/watch?v=AU-hut9lGQ4&list=RDAU-hut9lGQ4&start_radio=1'],
-    description: 'A spacious 3 BHK apartment located in the heart of Andheri.',
-  },
-];
-
+import { LocationMarkerIcon, CheckCircleIcon, UsersIcon } from '@heroicons/react/solid';
 export default function ListingPage({ darkMode }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [properties, setProperties] = useState(initialProperties);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const router = useRouter();
+  const { search } = router.query;
+  
+  useEffect(() => {
+    if (search) {
+      setSearchQuery(search);
+    }
+  }, [search]);
+  useEffect(() => {
+    // Fetch properties from an API or backend
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch('/api/user/get-listing'); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error('Failed to fetch properties');
+        }
+        const data = await response.json();
+        console.log(data);
+        setProperties(data.properties); // Assuming the API returns an array of property objects
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   // Filter properties based on search query
   const filteredProperties = properties.filter((property) =>
@@ -58,64 +74,89 @@ export default function ListingPage({ darkMode }) {
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-24">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProperties.length > 0 ? (
-              filteredProperties.map((property) => (
-                <div
-                  key={property.id}
-                  className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105 dark:bg-gray-800 dark:border-gray-700"
+          {loading ? (
+            <p className="text-center text-gray-500">Loading properties...</p>
+          ) : error ? (
+            <p className="text-center text-red-500">{error}</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              
+
+              {filteredProperties.length > 0 ? (
+          filteredProperties.map((property) => (
+              <div  key={property._id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all transform hover:scale-105 dark:bg-gray-800 dark:text-white relative">
+                <Link
+                  href={{
+                    pathname: `/property/${property.id}`,
+                    query: { object: JSON.stringify(property) },
+                  }}
+                  passHref
                 >
-                  {/* Property Image */}
-                  <Link
-                    href={{
-                      pathname: `/property/${property.id}`,
-                      query: { object: JSON.stringify(property) },
-                    }}
-                    passHref
-                  >
-                    <Image
+                  <div className="relative">
+                    <img
                       src={property.images[0]}
-                      alt={`Image of ${property.name}`}
-                      width={500}
-                      height={350}
-                      className="w-full h-56 object-cover rounded-t-lg transition-transform duration-300 ease-in-out hover:scale-105"
+                      alt={property.name}
+                      className="w-full h-48 object-cover rounded-t-lg"
                     />
-                  </Link>
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40"></div>
+                  </div>
 
-                  <div className="p-6">
-                    {/* Property Name */}
-                    <h5 className="text-2xl font-semibold mb-3">{property.name}</h5>
+                  <div className="p-4 space-y-4">
+                    {/* Project Name and Price */}
+                    <div className="flex justify-between items-center mb-2">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{property.name}</h3>
+                      <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                        ₹{property.price}
+                      </span>
+                    </div>
 
-                    {/* Property Location */}
-                    <p className="text-sm mb-4">{property.location}</p>
+                    {/* Project Details */}
+                    <div className="text-sm text-gray-500 dark:text-gray-300 space-y-2">
+                      <div className="flex items-center">
+                        <LocationMarkerIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+                          <span className="ml-2">{property.location}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <UsersIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+                        <span className="ml-2">{property.size} | {property.baths} Baths</span>
+                      </div>
+                    </div>
 
-                    {/* Price */}
-                    <span className="text-3xl font-bold">{property.price}</span>
+                    {/* Amenities Section */}
+                    <div className="mt-4 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+                      <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Amenities</h4>
+                      <ul className="text-sm grid grid-cols-2 gap-2 text-gray-600 dark:text-gray-300">
+                        {property.amenities.slice(0, 4).map((amenity, index) => (
+                          <li key={index} className="flex items-center">
+                            <CheckCircleIcon className="h-4 w-4 text-green-500 flex-shrink-0" />
+                            <span className="ml-2 truncate">{amenity}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                    {/* Property Details */}
-                    <div className="mt-4 space-y-1">
-                      <p className="text-sm">{property.size} sqft</p>
-                      <p className="text-sm">{property.propertyType}</p>
-                      <p className="text-sm">{property.baths} Bathrooms</p>
+                    {/* Project Description */}
+                    <p className="text-gray-600 dark:text-gray-300">{property.description.substring(0, 100)}...</p>
+
+                    {/* More details button */}
+                    <div className="mt-3 text-center"> 
+                      <Link
+                        href={`https://wa.me/9987790471`}
+                        target="_blank"
+                        className="w-full inline-block bg-blue-500 text-white py-2 rounded-lg text-center hover:bg-blue-600 transition-colors duration-200"
+                      >
+                        Contact
+                      </Link>
                     </div>
                   </div>
-
-                  {/* Action Button */}
-                  <div className="px-6 pb-6">
-                    <Link
-                      href={`https://wa.me/${property.whatsappNumber || "9987790471"}?text=Hi, I am interested in the property: ${property.name}, which is priced at ${property.price}`}
-                      target="_blank"
-                      className="w-full inline-block bg-blue-500 text-white py-2 rounded-lg text-center hover:bg-blue-600 transition-colors duration-200"
-                    >
-                      Contact
-                    </Link>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p className="text-center text-gray-500">No properties found matching your search criteria.</p>
-            )}
-          </div>
+                </Link>
+              </div>
+          ))
+        ) : (
+          <div>No properties available</div> // Handle the case where there are no projects
+        )}
+            </div>
+          )}
         </div>
       </section>
     </>

@@ -7,11 +7,19 @@ import { useRouter } from "next/router";
 import LoadingBar from "react-top-loading-bar";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import mamtarealty_logo from  "../public/mamtarealty_logo.png";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
+
+  // dark mode is false and true
   const [darkMode, setDarkMode] = useState(false);
+
+  // progress is 0 and 100 is loading bar 
   const [progress, setProgress] = useState(0); //  // Loading Bar is lod 
+  
+  // The Company Name is Mamta Realty
+  const [company, setCompany] = useState("Mamta Realty");
    
  // The Admin Logging is true and false the show dashboard and container 
  const [isLoggedInAdmin, setIsLoggedInAdmin] = useState(false);
@@ -20,6 +28,8 @@ export default function App({ Component, pageProps }) {
     initializeDarkMode();
   }, []);
 
+
+  // The Dark Mode is false and true
   const initializeDarkMode = () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -32,6 +42,7 @@ export default function App({ Component, pageProps }) {
     }
   };
 
+  // The Dark Mode is false and true
   const toggleDarkMode = useCallback(() => {
     const newMode = !darkMode;
     setDarkMode(newMode);
@@ -48,9 +59,9 @@ useEffect(() => {
   return (
     <>
      <div className="">
-     <LoadingBar color="#f11946" waitingTime={400} progress={progress} onLoaderFinished={() => setProgress(0)}/>
+     <LoadingBar color="#4c00ff" waitingTime={400} progress={progress} onLoaderFinished={() => setProgress(0)}/>
      <ToastContainer />
-     <Navbar darkMode={darkMode}  toggleDarkMode={toggleDarkMode} />
+     <Navbar darkMode={darkMode}  toggleDarkMode={toggleDarkMode} companyName={company} companyLogo={mamtarealty_logo} />
       <Component {...pageProps} setProgress={setProgress}  darkMode={darkMode} toggleDarkMode={toggleDarkMode} isLoggedInAdmin={isLoggedInAdmin} setIsLoggedInAdmin={setIsLoggedInAdmin}  />
       {/* WhatsApp Icon */}
       <a
@@ -60,7 +71,7 @@ useEffect(() => {
       >
        <FaWhatsapp className="text-white text-4xl" /> 
       </a>
-      <Footer />
+      <Footer companyName={company} companyLogo={mamtarealty_logo} />
      </div>
     </>
   );

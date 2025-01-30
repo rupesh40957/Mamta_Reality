@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaHome, FaList, FaBlog, FaPhoneAlt, FaInfoCircle, FaSun, FaMoon, FaSearch } from 'react-icons/fa';
+import { useRouter } from 'next/router';
 
 export default function Navbar(props) {
   const {darkMode, toggleDarkMode} =props 
@@ -20,12 +21,12 @@ export default function Navbar(props) {
   <div className="max-w-screen-xl flex justify-between items-center mx-auto p-4">
     {/* Logo */}
     <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/6/64/Google_logo_2015.svg"
-        alt="Logo"
-        className="h-8 transition-transform hover:scale-110"
-      />
-      <h1 className="hidden md:block text-2xl font-bold">Mamta Realty</h1>
+          <img
+            src={props.companyLogo.src} 
+            alt="Logo" 
+            className="h-10 rounded-full transition-transform hover:scale-110"
+          />
+      <h1 className="hidden md:block text-2xl font-bold">{props.companyName}</h1>
     </Link>
 
     {/* Navbar Links */}

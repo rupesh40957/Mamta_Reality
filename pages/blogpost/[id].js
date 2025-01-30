@@ -65,7 +65,11 @@ function BlogPost() {
         <div className="mb-6">
           <h1 className="text-3xl font-semibold text-gray-800 dark:text-white">{postData.title}</h1>
           <p className="text-gray-500 text-sm dark:text-gray-400">
-            {new Date(postData.date).toLocaleDateString()}
+          {postData.updatedAt ? new Date(postData.updatedAt).toLocaleDateString('en-IN', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric'
+            }) : 'Date not available'}
           </p>
         </div>
 
