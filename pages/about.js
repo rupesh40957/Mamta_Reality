@@ -2,25 +2,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
 
-export default function AboutPage() {
-  const [darkMode, setDarkMode] = useState(false);
+export default function AboutPage(props) {
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      const isDark = savedTheme === 'dark';
-      setDarkMode(isDark);
-      document.documentElement.classList.toggle('dark', isDark);
-    }
-  }, []);
-
-  const toggleDarkMode = useCallback(() => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    const theme = newMode ? 'dark' : 'light';
-    localStorage.setItem('theme', theme);
-    document.documentElement.classList.toggle('dark', newMode);
-  }, [darkMode]);
 
   return (
     <>
@@ -36,45 +19,99 @@ export default function AboutPage() {
 
       {/* Hero Section with Background Image */}
       <section
-        className="bg-cover bg-center py-24 text-white"
-        style={{ backgroundImage: "url('/about-hero.jpg')" }}
+        className="bg-cover bg-center py-24 bg-blue-800 text-white"
+        style={{ backgroundImage: `url(${props.companyLogo})` }}
       >
         <div className="max-w-screen-lg mx-auto text-center">
           <h2 className="text-4xl font-semibold mb-4">About Mamta Realty</h2>
           <p className="text-lg">Your trusted partner in real estate for over a decade in Dombivli and Kalyan.</p>
         </div>
       </section>
-
       {/* About Section */}
-      <section className="py-12 bg-gray-100 dark:bg-gray-800">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-6">Who We Are</h2>
-          <div className="flex flex-col md:flex-row gap-8">
+      <section className="py-16 bg-gray-100 dark:bg-gray-800">
+        <div className="max-w-screen-lg mx-auto px-4">
+          <h2 className="text-4xl font-bold mb-8 text-center text-gray-800 dark:text-white">Who We Are</h2>
+          <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="w-full md:w-1/3">
-              <Image
-                src="/company-image.jpg"
-                alt="Mamta Realty Team"
-                width={300}
-                height={300}
-                className="rounded-lg"
-              />
+              <div className="relative group">
+                <Image
+                  src="/mamtarealty_logo.png"
+                  alt="Mamta Realty Team"
+                  width={400}
+                  height={400}
+                  className="rounded-xl shadow-2xl hover:scale-105 transition duration-500 ease-in-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+              </div>
             </div>
-            <div className="w-full md:w-2/3 text-left">
-              <p className="text-xl text-gray-700 dark:text-gray-300">
-                Mamta Realty is a trusted name in real estate, dedicated to providing seamless property transactions in Dombivli and Kalyan. We specialize in both residential and commercial properties, offering mandate-based sales to ensure secure, transparent deals for buyers and sellers alike. Our expert team guides clients every step of the way, ensuring a hassle-free experience and the best deals in the market.
-              </p>
+            <div className="w-full md:w-2/3">
+              <div className="space-y-6">
+                <p className="text-2xl font-light text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Mamta Realty stands as a beacon of trust and excellence in the real estate landscape of Dombivli and Kalyan. With years of dedicated service, we've built our reputation on the pillars of integrity, expertise, and client satisfaction.
+                </p>
+                <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                  We specialize in both residential and commercial properties, offering comprehensive mandate-based sales that ensure secure and transparent deals. Our expert team provides personalized guidance through every step of your property journey.
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+                  <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h3 className="font-bold text-blue-600 dark:text-blue-400">Residential</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Expert home solutions</p>
+                  </div>
+                  <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h3 className="font-bold text-blue-600 dark:text-blue-400">Commercial</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Business spaces</p>
+                  </div>
+                  <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h3 className="font-bold text-blue-600 dark:text-blue-400">Consulting</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Expert guidance</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Vision and Mission Section */}
-      <section className="py-12 bg-blue-600 text-white dark:bg-blue-800">
-        <div className="max-w-screen-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-6">Our Vision & Mission</h2>
-          <p className="text-xl">
-            At Mamta Realty, our vision is to be the most trusted real estate partner in Dombivli and Kalyan, ensuring seamless and transparent property transactions. Our mission is to empower buyers and sellers with expert guidance, ethical dealings, and end-to-end support. We aim to make real estate transactions easy, honest, and profitable, driving growth in the local real estate market.
-          </p>
+      <section className="py-16 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
+        <div className="max-w-screen-lg mx-auto px-4">
+          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+            Our Vision & Mission
+          </h2>
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8 transform hover:scale-105 transition duration-300">
+              <div className="flex items-center mb-6">
+                <div className="p-4 bg-blue-100 dark:bg-blue-900 rounded-full shadow-inner">
+                  <svg className="w-8 h-8 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-3xl font-bold ml-6 text-gray-800 dark:text-white bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+                  Our Vision
+                </h3>
+              </div>
+              <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
+                To be the most trusted real estate partner in Dombivli and Kalyan, ensuring seamless and transparent property transactions.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8 transform hover:scale-105 transition duration-300">
+              <div className="flex items-center mb-6">
+                <div className="p-4 bg-green-100 dark:bg-green-900 rounded-full shadow-inner">
+                  <svg className="w-8 h-8 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                </div>
+                <h3 className="text-3xl font-bold ml-6 text-gray-800 dark:text-white bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
+                  Our Mission
+                </h3>
+              </div>
+              <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
+                To empower buyers and sellers with expert guidance, ethical dealings, and end-to-end support. Making real estate transactions easy, honest, and profitable while driving growth in the local market.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -205,7 +242,7 @@ export default function AboutPage() {
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
-                  <a href="mailto:contact@mamtarealty.com" className="hover:text-blue-600 transition-colors">contact@mamtarealty.com</a>
+                  <a href="mailto:contact@mamtarealty.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">contact@mamtarealty.com</a>
                 </p>
                 <p className="flex items-center">
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

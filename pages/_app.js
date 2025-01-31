@@ -62,7 +62,7 @@ useEffect(() => {
      <LoadingBar color="#4c00ff" waitingTime={400} progress={progress} onLoaderFinished={() => setProgress(0)}/>
      <ToastContainer />
      <Navbar darkMode={darkMode}  toggleDarkMode={toggleDarkMode} companyName={company} companyLogo={mamtarealty_logo} />
-      <Component {...pageProps} setProgress={setProgress}  darkMode={darkMode} toggleDarkMode={toggleDarkMode} isLoggedInAdmin={isLoggedInAdmin} setIsLoggedInAdmin={setIsLoggedInAdmin}  />
+      <Component {...pageProps} setProgress={setProgress}   darkMode={darkMode} toggleDarkMode={toggleDarkMode}companyName={company} companyLogo={mamtarealty_logo}   isLoggedInAdmin={isLoggedInAdmin} setIsLoggedInAdmin={setIsLoggedInAdmin}  />
       {/* WhatsApp Icon */}
       <a
         href="https://wa.me/9987790471"
