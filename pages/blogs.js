@@ -1,7 +1,7 @@
 // pages/index.js
 import Link from 'next/link';
 import { useState, useContext } from 'react';
-import MetaTags from '../components/SEO/metaTags';
+import MetaTags from '../components/SEO/MetaTags';
 import seoConfig from '../utils/seoConfig';
 import { GlobalDataContext } from '../contexts/GlobalDataContext';
 

@@ -43,7 +43,8 @@
     "react-top-loading-bar": "^3.0.2",
     "sharp": "^0.33.5",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.2.1"
+    "swiper": "^11.2.1",
+    "vercel": "^41.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

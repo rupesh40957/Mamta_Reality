@@ -12,7 +12,7 @@ import Image from 'next/image';
 ;
 // SEO
 import seoConfig from '../utils/seoConfig';
-import MetaTags from '../components/SEO/metaTags';
+import MetaTags from '../components/SEO/MetaTags';
 
 
 

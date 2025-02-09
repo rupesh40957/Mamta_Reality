@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image'; // For optimized image rendering (optional)
 import { FaSearch } from 'react-icons/fa';
 import { LocationMarkerIcon, CheckCircleIcon, UsersIcon } from '@heroicons/react/solid';
-import MetaTags from '../components/SEO/metaTags';
+import MetaTags from '../components/SEO/MetaTags';
 import seoConfig from '../utils/seoConfig';
 import { GlobalDataContext } from '../contexts/GlobalDataContext';
 

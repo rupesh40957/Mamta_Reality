@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
-import MetaTags from "../components/SEO/metaTags";
+import MetaTags from "../components/SEO/MetaTags";
 import { useRouter } from 'next/router';
 import RanjivImage from "../public/img/ranjiv.jpg"
 import SoniyaImage from '../public/img/soniya.jpg';

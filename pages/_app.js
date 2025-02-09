@@ -16,8 +16,9 @@ import { AdminProvider } from '../contexts/AdminContext';
 // Dynamic Imports
 const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
 const Footer = dynamic(() => import("../components/footer"), { ssr: false });
-const MetaTags = dynamic(() => import("../components/SEO/metaTags"), { ssr: false });
-const SchemaMarkup = dynamic(() => import("../components/SEO/schemaMarkup"), { ssr: false });
+const MetaTags = dynamic(() => import("../components/SEO/MetaTags"), { ssr: false });
+const SchemaMarkup = dynamic(() => import("../components/SEO/SchemaMarkup"), { ssr: false });
+
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

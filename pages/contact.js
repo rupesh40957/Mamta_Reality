@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-import MetaTags from "../components/SEO/metaTags";
+import MetaTags from "../components/SEO/MetaTags";
 import seoConfig from '../utils/seoConfig';
 
 export default function ContactPage(props) {
