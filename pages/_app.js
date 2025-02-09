@@ -1,78 +1,130 @@
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+// pages/_app.js
 import "../styles/globals.css";
 import { useState, useEffect, useCallback } from "react";
-import { FaWhatsapp } from 'react-icons/fa';
 import { useRouter } from "next/router";
+import { FaWhatsapp } from "react-icons/fa";
 import LoadingBar from "react-top-loading-bar";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import mamtarealty_logo from  "../public/mamtarealty_logo.png";
+import "react-toastify/dist/ReactToastify.css";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import seoConfig from "../utils/seoConfig";
+import mamtarealty_logo from "../public/mamtarealty_logo.png";
+import { GlobalDataProvider } from "../contexts/GlobalDataContext";
+import { AdminProvider } from '../contexts/AdminContext';
 
-export default function App({ Component, pageProps }) {
+// Dynamic Imports
+const Navbar = dynamic(() => import("../components/navbar"), { ssr: false });
+const Footer = dynamic(() => import("../components/footer"), { ssr: false });
+const MetaTags = dynamic(() => import("../components/SEO/metaTags"), { ssr: false });
+const SchemaMarkup = dynamic(() => import("../components/SEO/schemaMarkup"), { ssr: false });
+
+function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const currentURL = `${seoConfig.defaultURL}${router.asPath}`;
 
-  // dark mode is false and true
+  // State Management
   const [darkMode, setDarkMode] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [company] = useState("Mamta Realty");
+  const [isLoggedInAdmin, setIsLoggedInAdmin] = useState(false);
 
-  // progress is 0 and 100 is loading bar 
-  const [progress, setProgress] = useState(0); //  // Loading Bar is lod 
-  
-  // The Company Name is Mamta Realty
-  const [company, setCompany] = useState("Mamta Realty");
-   
- // The Admin Logging is true and false the show dashboard and container 
- const [isLoggedInAdmin, setIsLoggedInAdmin] = useState(false);
-
+  // Initialize Dark Mode on Mount
   useEffect(() => {
-    initializeDarkMode();
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = savedTheme ? savedTheme === "dark" : systemPrefersDark;
+    setDarkMode(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
   }, []);
 
-
-  // The Dark Mode is false and true
-  const initializeDarkMode = () => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setDarkMode(savedTheme === "dark");
-      document.documentElement.classList.toggle("dark", savedTheme === "dark");
-    } else {
-      const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setDarkMode(systemPrefersDark);
-      document.documentElement.classList.toggle("dark", systemPrefersDark);
-    }
-  };
-
-  // The Dark Mode is false and true
+  // Toggle Dark Mode
   const toggleDarkMode = useCallback(() => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    const theme = newMode ? "dark" : "light";
-    localStorage.setItem("theme", theme);
-    document.documentElement.classList.toggle("dark", newMode);
-  }, [darkMode]);
+    setDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem("theme", newMode ? "dark" : "light");
+      document.documentElement.classList.toggle("dark", newMode);
+      return newMode;
+    });
+  }, []);
 
-// Loading Bar is lod 
-useEffect(() => {
-  router.events.on("routeChangeStart", () => {setProgress(100);});
-}, [router.query]);
+  // Track Page Route Changes for Loading Bar
+  useEffect(() => {
+    const handleRouteChange = () => setProgress(100);
+    router.events.on("routeChangeStart", handleRouteChange);
+    return () => router.events.off("routeChangeStart", handleRouteChange);
+  }, [router]);
 
   return (
-    <>
-     <div className="">
-     <LoadingBar color="#4c00ff" waitingTime={400} progress={progress} onLoaderFinished={() => setProgress(0)}/>
-     <ToastContainer />
-     <Navbar darkMode={darkMode}  toggleDarkMode={toggleDarkMode} companyName={company} companyLogo={mamtarealty_logo} />
-      <Component {...pageProps} setProgress={setProgress}   darkMode={darkMode} toggleDarkMode={toggleDarkMode}companyName={company} companyLogo={mamtarealty_logo}   isLoggedInAdmin={isLoggedInAdmin} setIsLoggedInAdmin={setIsLoggedInAdmin}  />
-      {/* WhatsApp Icon */}
+    <AdminProvider>
+      <GlobalDataProvider>
+        {/* Global SEO Meta Tags */}
+        <MetaTags
+
+        title={seoConfig.defaultTitle}
+        description={seoConfig.defaultDescription}
+        image={seoConfig.defaultImage}
+        url={currentURL}
+        keywords={seoConfig.defaultKeywords}
+      />
+
+      {/* JSON-LD Schema Markup */}
+      <SchemaMarkup pageType="WebPage" url={currentURL} />
+
+      {/* Canonical URL for SEO */}
+      <Head>
+        <link rel="canonical" href={currentURL} />
+      </Head>
+
+      {/* Page Loading Bar */}
+      <LoadingBar
+        color="#4c00ff"
+        waitingTime={400}
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+
+      {/* Toast Notifications */}
+      <ToastContainer />
+
+      {/* Navbar */}
+      <Navbar
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        companyName={company}
+        companyLogo={mamtarealty_logo}
+      />
+
+      {/* Main Content */}
+      <Component
+        {...pageProps}
+        setProgress={setProgress}
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        companyName={company}
+        companyLogo={mamtarealty_logo}
+        isLoggedInAdmin={isLoggedInAdmin}
+        setIsLoggedInAdmin={setIsLoggedInAdmin}
+      />
+
+      {/* WhatsApp Floating Button */}
       <a
         href="https://wa.me/9987790471"
         target="_blank"
+        rel="noopener noreferrer"
         className="fixed bottom-5 right-5 bg-green-500 rounded-full p-3 shadow-lg hover:bg-green-600 transition duration-200 z-50"
+        onClick={() =>
+          window.dataLayer && window.dataLayer.push({ event: "whatsapp_click" })
+        }
       >
-       <FaWhatsapp className="text-white text-4xl" /> 
+        <FaWhatsapp className="text-white text-4xl" />
       </a>
+
+      {/* Footer */}
       <Footer companyName={company} companyLogo={mamtarealty_logo} />
-     </div>
-    </>
+    </GlobalDataProvider>
+    </AdminProvider>
   );
 }
+
+export default MyApp;

@@ -2,7 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-
+import MetaTags from "../components/SEO/metaTags";
+import seoConfig from '../utils/seoConfig';
 
 export default function ContactPage(props) {
   const { darkMode } = props;
@@ -18,20 +19,17 @@ export default function ContactPage(props) {
 
   return (
     <div className='text-black'>
-      <Head>
-        <title>Contact Us - Mamta Realty</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="description" content="Get in touch with Mamta Realty. Contact us for inquiries, property details, or to schedule a consultation." />
-        <meta name="keywords" content="Mamta Realty, contact, property, real estate, Mumbai, Maharashtra, India" />
-        <meta name="author" content="Mamta Realty" />
-        <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index, follow" />
-        <meta
-          name="description"
-          content="Get in touch with Mamta Realty. Contact us for inquiries, property details, or to schedule a consultation."
-        />
-      </Head>
+ <MetaTags
+        title=" Contact Us - Mamta Realty"
+        description="Get in touch with Mamta Realty. Contact us for inquiries, property details, or to schedule a consultation."
+        image="https://www.mamtarealty.com/img/mamtarealty_logo.png"
+        url="https://www.mamtarealty.com/contact"
+        keywords="real estate, property, buy home, contact us, property details, inquiries, schedule a consultation , Mamta Realty, Mumbai, Maharashtra, India, contact us, property details, inquiries, schedule a consultation , Mamta Realty, Mumbai, Maharashtra, India,"
+        pageType="WebPage"
+        breadcrumb={seoConfig.breadcrumb}
+
+      />  
+
 
       {/* Hero Section */}
       <section className=" bg-blue-600 text-white py-12 dark:bg-blue-900 dark:text-gray-300">

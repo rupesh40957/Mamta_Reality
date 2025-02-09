@@ -21,8 +21,12 @@ const handler = async (req, res) => {
           .skip((page - 1) * limit)
           .limit(parseInt(limit));
         const total = await PropertyListing.countDocuments({});
+        if(!properties){
+          return res.status(404).json({message:"No properties found"});
+        }
         res.status(200).json({ total, properties });
         break;
+
       }
 
       default:

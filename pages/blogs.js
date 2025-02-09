@@ -1,43 +1,39 @@
+// pages/index.js
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
+import MetaTags from '../components/SEO/metaTags';
+import seoConfig from '../utils/seoConfig';
+import { GlobalDataContext } from '../contexts/GlobalDataContext';
 
 export default function UserInterface({ darkMode }) {
-  const [posts, setPosts] = useState([]); // Initialize as an empty array
+  // Directly use blogsData from context; ensure it's an array
+  const { blogsData, loading } = useContext(GlobalDataContext);
+  const posts = Array.isArray(blogsData) ? blogsData : [];
+  
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
-
-  // Fetch posts from an API
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setLoading(true); // Start loading
-        const response = await fetch('/api/user/get-blogs'); // Replace with your API endpoint
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setPosts(data.blogs); // Set fetched posts
-      } catch (err) {
-        setError('Failed to fetch posts. Please try again later.');
-      } finally {
-        setLoading(false); // Stop loading
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  const [error, setError] = useState(null); // Error state (optional)
 
   // Filter posts based on search term
   const filteredPosts = posts.filter((post) => {
     const search = searchTerm.trim().toLowerCase();
     const title = post.title.toLowerCase();
     const description = post.description.toLowerCase();
-    return title.includes(search) || description.includes(search);  
+    return title.includes(search) || description.includes(search);
   });
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-8 transition-colors duration-500">
+      {/* SEO Meta Tags */}
+      <MetaTags
+        title="Blogs - Mamta Realty"
+        description="Explore our latest blogs and stay updated on the latest real estate trends and insights."
+        image="https://www.mamtarealty.com/img/mamtarealty_logo.png"
+        url="https://www.mamtarealty.com/blogs"
+        keywords="real estate, property, buy home, Mamta Realty, Mumbai, Maharashtra, India"
+        pageType="WebPage"
+        breadcrumb={seoConfig.breadcrumb}
+      />
+
       {/* Header */}
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Explore Blogs</h1>
@@ -61,7 +57,12 @@ export default function UserInterface({ darkMode }) {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 18l6-6m0 0l-6-6m6 6H4" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 18l6-6m0 0l-6-6m6 6H4"
+            />
           </svg>
         </div>
         {/* Clear Button */}
@@ -77,7 +78,12 @@ export default function UserInterface({ darkMode }) {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         )}
@@ -93,7 +99,11 @@ export default function UserInterface({ darkMode }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPosts.map((post) => (
               <div key={post.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="w-full h-48 object-cover"
+                />
                 <div className="p-4">
                   <h3 className="font-semibold text-xl">{post.title}</h3>
                   <p className="mt-2">
@@ -114,9 +124,9 @@ export default function UserInterface({ darkMode }) {
               </div>
             ))}
           </div>
-
-          {/* No Posts Found */}
-          {filteredPosts.length === 0 && <p className="text-center mt-10">No posts found.</p>}
+          {filteredPosts.length === 0 && (
+            <p className="text-center mt-10">No posts found.</p>
+          )}
         </>
       )}
     </div>

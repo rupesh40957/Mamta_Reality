@@ -1,0 +1,17 @@
+# robots.txt for Mamta Realty
+
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow:
+
+
+Allow: / 
+Allow: /about-us/
+Allow: /services/
+Allow: /properties/
+Allow: /contact/
+Allow: /blog/
+Allow: /login/
+
+Sitemap: https://www.mamtarealty.com/sitemap.xml

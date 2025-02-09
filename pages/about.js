@@ -1,24 +1,36 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
+import MetaTags from "../components/SEO/metaTags";
+import { useRouter } from 'next/router';
+import RanjivImage from "../public/img/ranjiv.jpg"
+import SoniyaImage from '../public/img/soniya.jpg';
+import AnkitImage from '../public/img/ankit.jpg';
+
+
 
 export default function AboutPage(props) {
+const darkMode = props.darkMode;
 
+
+  const themeClass = darkMode === 'class' ? 'dark' : '';
 
   return (
     <>
-      <Head>
-        <title>About Us - Mamta Realty</title>
-        <meta
-          name="description"
-          content="Learn more about Mamta Realty, a trusted real estate company providing exceptional services in property sales and development in Dombivli and Kalyan."
-        />
-      </Head>
+      <MetaTags
+        title="About Us - Mamta Realty"
+        description="Mamta Realty is the leading real estate agency..."
+        image="https://www.mamtarealty.com/img/mamtarealty_logo.png"
+        url="https://www.mamtarealty.com/about"
+        keywords="real estate, property, buy home, Mamta Realty, Mumbai, Maharashtra, India, real estate, property, buy home, Mamta Realty, Mumbai, Maharashtra, India,"
+        pageType="WebPage"
+        breadcrumb={[{ name: "Home", url: "/" }, { name: "About", url: "/about" }]}
+      />
 
    
 
       {/* Hero Section with Background Image */}
-      <section
+      {/* <section
         className="bg-cover bg-center py-24 bg-blue-800 text-white"
         style={{ backgroundImage: `url(${props.companyLogo})` }}
       >
@@ -26,7 +38,7 @@ export default function AboutPage(props) {
           <h2 className="text-4xl font-semibold mb-4">About Mamta Realty</h2>
           <p className="text-lg">Your trusted partner in real estate for over a decade in Dombivli and Kalyan.</p>
         </div>
-      </section>
+      </section> */}
       {/* About Section */}
       <section className="py-16 bg-gray-100 dark:bg-gray-800">
         <div className="max-w-screen-lg mx-auto px-4">
@@ -148,19 +160,19 @@ export default function AboutPage(props) {
           <h2 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-white">Our Journey</h2>
           <div className="flex flex-col md:flex-row gap-8 justify-center">
             <div className="bg-white shadow-md rounded-lg p-6 w-full md:w-1/3 dark:bg-gray-700">
-              <h3 className="font-semibold text-xl">2010 - Founding</h3>
+              <h3 className="font-semibold text-xl text-blue-600 dark:text-blue-400">2010 - Founding</h3>
               <p className="mt-2 text-gray-700 dark:text-gray-300">
                 Mamta Realty was founded with a vision to provide exceptional real estate services in Dombivli and Kalyan, focusing on trust and transparency.
               </p>
             </div>
             <div className="bg-white shadow-md rounded-lg p-6 w-full md:w-1/3 dark:bg-gray-700">
-              <h3 className="font-semibold text-xl">2015 - Major Expansion</h3>
+              <h3 className="font-semibold text-xl text-blue-600 dark:text-blue-400">2015 - Major Expansion</h3>
               <p className="mt-2 text-gray-700 dark:text-gray-300">
                 We expanded our portfolio, managing larger residential and commercial projects while strengthening client relationships.
               </p>
             </div>
             <div className="bg-white shadow-md rounded-lg p-6 w-full md:w-1/3 dark:bg-gray-700">
-              <h3 className="font-semibold text-xl">2020 - A Leader in Real Estate</h3>
+              <h3 className="font-semibold text-xl text-blue-600 dark:text-blue-400">2020 - A Leader in Real Estate</h3>
               <p className="mt-2 text-gray-700 dark:text-gray-300">
                 Mamta Realty became a leading name in real estate, known for mandate-based sales, expert guidance, and customer-centric services.
               </p>
@@ -175,36 +187,38 @@ export default function AboutPage(props) {
           <h2 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-white">Meet Our Team</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <div className="bg-white shadow-md rounded-lg p-6 dark:bg-gray-700">
-              <Image
-                src="/team-member1.jpg"
+              <Image  
+                src={RanjivImage}
                 alt="Ranjiv Singh - CEO & Founder"
                 width={200}
                 height={200}
                 className="rounded-full mx-auto"
               />
-              <h3 className="font-semibold text-lg mt-4">Ranjiv Singh</h3>
+              <h3 className="font-semibold text-lg mt-4 text-blue-600 dark:text-blue-400">Ranjiv Singh</h3>
               <p className="text-gray-600 dark:text-gray-300">CEO & Founder</p>
             </div>
             <div className="bg-white shadow-md rounded-lg p-6 dark:bg-gray-700">
               <Image
-                src="/team-member2.jpg"
+                src={SoniyaImage}
                 alt="Soniya Javeri - Head of Sales"
                 width={200}
                 height={200}
                 className="rounded-full mx-auto"
+
               />
-              <h3 className="font-semibold text-lg mt-4">Soniya Javeri</h3>
+              <h3 className="font-semibold text-lg mt-4 text-blue-600 dark:text-blue-400">Soniya Javeri</h3>
               <p className="text-gray-600 dark:text-gray-300">Head of Sales</p>
             </div>
             <div className="bg-white shadow-md rounded-lg p-6 dark:bg-gray-700">
               <Image
-                src="/team-member3.jpg"
-                alt="Ankit Singh & Rupesh Prasad - Lead Developers"
+                src={AnkitImage}
+                alt="Ankit Singh - Lead Developers"
                 width={200}
                 height={200}
                 className="rounded-full mx-auto"
+
               />
-              <h3 className="font-semibold text-lg mt-4">Ankit Singh & Rupesh Prasad</h3>
+              <h3 className="font-semibold text-lg mt-4 text-blue-600 dark:text-blue-400">Ankit Singh </h3>
               <p className="text-gray-600 dark:text-gray-300">Lead Developers</p>
             </div>
           </div>
@@ -242,7 +256,7 @@ export default function AboutPage(props) {
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
-                  <a href="mailto:contact@mamtarealty.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">contact@mamtarealty.com</a>
+                  <a href="mailto:realtymamta@gmail.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors">realtymamta@gmail.com</a>
                 </p>
                 <p className="flex items-center">
                   <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+Allow: /
+Allow: /listing
+Allow: /about
+Allow: /contact
+Allow: /blog
+
+
+
+Sitemap: https://www.mamtarealty.com/sitemap.xml
+

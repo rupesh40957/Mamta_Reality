@@ -16,12 +16,17 @@ const handler = async (req, res) => {
           .skip((page - 1) * limit)
           .limit(parseInt(limit));
 
-        const total = await Blog.countDocuments({});
+          const total = await Blog.countDocuments({});
+          if(!blogs){
+            return res.status(404).json({message:"No blogs found"});
+          }
         res.status(200).json({ total, blogs });
+
         break;
       }
     }
      
+
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'Internal server error', error: error.message });

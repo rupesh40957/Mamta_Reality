@@ -42,8 +42,9 @@ const handler = async (req, res) => {
       }
       await admin.save();
       const authtoken = jwt.sign(data, process.env.JWT_SECRETADMIN);
+      
       // const admin = new Admin({ name, email, password:secPass });
-      return res.status(200).json({ok:"register sccssfully!"});
+      return res.status(200).json({ok:"register sccssfully!",authtoken});
     } catch (error) {
       console.error(error)
       return res.status(500).json({ error: 'Internal Server error' });
