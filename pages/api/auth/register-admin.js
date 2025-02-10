@@ -3,6 +3,8 @@ import connectDB from '../../../middleware/mangoose';
 import Admin from '../../../models/Admin';
 const bcrypt = require('bcrypt');
 const jwt=require('jsonwebtoken');
+import Script from "next/script";
+
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {

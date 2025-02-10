@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignore temporary and upload directories
+tmp/
+public/uploads/
+
+# Exclude heavy binaries from modules
+node_modules/ffmpeg-static/**
+node_modules/sharp/**
+
