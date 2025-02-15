@@ -42,16 +42,6 @@ export default function HomePage({ darkMode }) {
 
   return (
     <div className={`min-h-screen text-black pb-24 ${themeClass} bg-gray-50 dark:bg-gray-800`}>
-      {/* Global SEO Meta Tags */}
-      <MetaTags
-        title="Home - Mamta Realty"
-        description="Welcome to Mamta Realty, your trusted partner in real estate solutions. Explore our wide range of properties and find your dream home today."
-        image="https://www.mamtarealty.com/img/mamtarealty_logo.png"
-        url="https://www.mamtarealty.com"
-        keywords="real estate, property, buy home, Mamta Realty, Mumbai, Maharashtra, India"
-        pageType="WebPage"
-        breadcrumb={seoConfig.breadcrumb}
-      />
 
       {/* Hero Section */}
       <div className="relative">
@@ -71,10 +61,6 @@ export default function HomePage({ darkMode }) {
               height={1000}
               className="w-full h-[400px] object-cover"
             />
-
-
-
-
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-75"></div>
             <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
               <h1 className="text-4xl font-bold text-center">Find Your Dream Home</h1>
@@ -94,10 +80,6 @@ export default function HomePage({ darkMode }) {
               width={1000}
               height={1000}
               className="w-full h-[400px] object-cover"
-
-
-
-
             />
           </SwiperSlide>
         </Swiper>
@@ -186,6 +168,16 @@ export default function HomePage({ darkMode }) {
       <div className="text-center py-3">
         <About />
       </div>
+ {/* Global SEO Meta Tags */}
+ <MetaTags
+        title="Home - Mamta Realty"
+        description="Welcome to Mamta Realty, your trusted partner in real estate solutions. Explore our wide range of properties and find your dream home today."
+        image="https://www.mamtarealty.com/img/mamtarealty_logo.png"
+        url="https://www.mamtarealty.com"
+        keywords="real estate, property, buy home, Mamta Realty, Mumbai, Maharashtra, India"
+        pageType="WebPage"
+        breadcrumb={seoConfig.breadcrumb}
+      />
     </div>
   );
 }
@@ -280,7 +272,7 @@ function SectionWithSwiper({ title, property }) {
                     {/* More Details Button */}
                     <div className="mt-3 text-center">
                       <Link
-                        href="https://wa.me/9987790471"
+                        href="https://wa.me/9987811471"
                         target="_blank"
                         className="w-full inline-block bg-blue-500 text-white py-2 rounded-lg text-center hover:bg-blue-600 transition-colors duration-200"
                       >

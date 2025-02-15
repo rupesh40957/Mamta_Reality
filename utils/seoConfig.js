@@ -4,10 +4,10 @@ const seoConfig = {
   defaultDescription: "Mamta Realty offers expert real estate services in Dombivli and Kalyan with 15+ years of experience. Find your dream property - residential flats, commercial spaces, plots & more. Get professional property consultation, fair deals & complete assistance.",
   defaultKeywords: "Mamta Realty, Real Estate Dombivli, Property Dealer Kalyan, Residential Flats, Commercial Property, Property Consultation, Real Estate Agent, Property Deals Mumbai, Buy Property Dombivli, Rent Property Kalyan",
   defaultURL: "https://www.mamtarealty.com",
-  defaultImage: "https://www.mamtarealty.com/img/mamtarealty_logo.png",
+  defaultImage: "https://www.mamtarealty.com/img/logo.png",
   defaultLanguage: "en",
   defaultLocale: "en_IN",
-  googleVerification: "YOUR_GOOGLE_SITE_VERIFICATION_CODE",
+  googleVerification: "google-site-verification=ym-WJi19G517xcHpl0iuBtvdwKTPDkoO2eJ4aVbjSIo",
   bingVerification: "YOUR_BING_VERIFICATION_CODE",
   breadcrumb: [
     { name: "Home", url: "/" },
@@ -25,11 +25,11 @@ const seoConfig = {
   instagramPage: "https://www.instagram.com/mamta_realty/",
   youTubeChannel: "https://www.youtube.com/@MamtaRealty",
   pinterestPage: "https://in.pinterest.com/mamtarealty/",
-  whatsappContact: "https://wa.me/9987790471",
+  whatsappContact: "https://wa.me/9987811471",
 
   // Contact Information
-  businessPhone: "+91 9987790471",
-  businessEmail: "contact@mamtarealty.com",
+  businessPhone: "+91 9987811471",
+  businessEmail: "realtymamta@gmail.com",
   businessAddress: {
     streetAddress: "", // Add actual street address
     locality: "Dombivli",
@@ -39,7 +39,7 @@ const seoConfig = {
   },
 
   // Verification Codes
-  googleVerification: "YOUR_GOOGLE_SITE_VERIFICATION_CODE",
+  googleVerification: "google-site-verification=ym-WJi19G517xcHpl0iuBtvdwKTPDkoO2eJ4aVbjSIo",
   bingVerification: "YOUR_BING_VERIFICATION_CODE",
   
   getStructuredData: (pageType = "WebPage", url, breadcrumb) => {

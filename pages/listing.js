@@ -160,7 +160,7 @@ export default function ListingPage({ darkMode }) {
                         {/* Contact Button */}
                         <div className="mt-3 text-center">
                           <Link
-                            href="https://wa.me/9987790471"
+                            href="https://wa.me/9987811471"
                             target="_blank"
                             className="w-full inline-block bg-blue-500 text-white py-2 rounded-lg text-center hover:bg-blue-600 transition-colors duration-200"
                           >

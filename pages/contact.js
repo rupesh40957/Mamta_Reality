@@ -45,15 +45,15 @@ export default function ContactPage(props) {
           <div className="bg-white shadow-md rounded-lg p-6 dark:bg-gray-900 dark:text-white">
             <h2 className="text-2xl font-bold mb-4">Our Contact Details</h2>
             <p className="mb-2  ">
-              <strong className=''>Address:</strong> <strong className='text-red-400'>Mamta reality Trinity building Ground floor , Nr. Modern English School, Devi Chowk, dombivali West 421202</strong>
+              <strong className=''>Address:</strong> <strong className='text-red-400'>Mamta realty Trinity building Ground floor , Nr. Modern English School, Devi Chowk, dombivali West 421202</strong>
             </p>
             <p className="mb-2">
-              <strong >Phone:</strong> <strong className=' text-red-400'> 99877 90471</strong>
+              <strong >Phone:</strong> <strong className=' text-red-400'> 9987811471</strong>
             </p>
             <p className="mb-4">
-              <strong>Email:</strong> <strong className='text-red-400'> contact@mamtarealty.com</strong>
+              <strong>Email:</strong> <strong className='text-red-400'> realtymamta@gmail.com</strong>
             </p>
-            <p className=''>Office Hours:<strong className='text-red-400'> Monday -  Sanday , 10 AM - 7 PM</strong></p>
+            <p className=''>Office Hours:<strong className='text-red-400'> Monday -  Sunday , 10 AM - 7 PM</strong></p>
           </div>
 
           {/* Google Map Embed */}

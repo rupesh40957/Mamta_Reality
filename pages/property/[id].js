@@ -49,7 +49,7 @@ const PropertyCard = ({ darkMode }) => {
         {/* Quick Actions Bar */}
         <div className="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm p-3 shadow-lg flex z-50 lg:hidden border-t dark:border-gray-700">
           <Link
-            href={`https://wa.me/${property.whatsappNumber || "9987790471"}`}
+            href={`https://wa.me/${property.whatsappNumber || "9987811471"}`}
             target="_blank"
             className="flex-1 mx-1 bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-full text-center text-sm font-medium flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 hover:from-green-600 hover:to-green-700 transition-all"
           >
@@ -57,7 +57,7 @@ const PropertyCard = ({ darkMode }) => {
             Chat Now
           </Link>
           <button 
-            onClick={() => window.location.href = `tel:${property.phoneNumber || "9987790471"}`}
+            onClick={() => window.location.href = `tel:${property.phoneNumber || "9987811471"}`}
             className="flex-1 mx-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-full text-center text-sm font-medium flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 hover:from-blue-600 hover:to-blue-700 transition-all"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -219,14 +219,14 @@ const PropertyCard = ({ darkMode }) => {
             {/* Desktop Contact Buttons */}
             <div className="hidden lg:grid grid-cols-2 gap-4">
               <Link
-                href={`https://wa.me/${property.whatsappNumber || "9987790471"}?text=Hi, I am interested in ${name}`}
+                href={`https://wa.me/${property.whatsappNumber || "9987811471"}?text=Hi, I am interested in ${name}`}
                 target="_blank"
                 className="bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-xl text-center font-medium hover:from-green-600 hover:to-green-700 transition-all shadow-lg shadow-green-500/20"
               >
          WhatsApp
               </Link>
               <button
-                onClick={() => window.location.href = `tel:${property.phoneNumber || "9987790471"}`}
+                onClick={() => window.location.href = `tel:${property.phoneNumber || "9987811471"}`}
                 className="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 rounded-xl text-center font-medium hover:from-blue-600 hover:to-blue-700 transition-all shadow-lg shadow-blue-500/20"
               >
                 Call Now

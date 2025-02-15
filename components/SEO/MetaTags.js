@@ -1,6 +1,6 @@
 import Head from "next/head";
 import seoConfig from "../../utils/seoConfig";
-
+import  favicon from '../../public/favicon.ico'
 const metaTags = ({ 
   title, 
   description, 
@@ -54,7 +54,7 @@ const metaTags = ({
 
       {/* Favicon */}
       <link rel="icon" href="/favicon.ico" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link rel="apple-touch-icon" href="/favicon.ico" />
 
       {/* Structured Data */}
       {structuredData && Object.keys(structuredData).length > 0 && (
